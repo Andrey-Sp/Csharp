@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double S;
+            double V;
+            Console.WriteLine("Enter R: ");
+            double R = Convert.ToDouble(Console.ReadLine());
+            
+            S = 4 * R * R;
+            V = (4.0 / 3.0) * R * R * R;
+            Console.WriteLine($"S={S}*pi");
+            Console.WriteLine($"V={V}*pi");
+            Console.ReadKey();
+        }
+    }
+}
