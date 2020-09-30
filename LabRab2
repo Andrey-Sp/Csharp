@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int nn, nk, k;
+            double a, Sum = 0;
+            Console.WriteLine("Enter nn: ");
+            nn = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter nk: ");
+            nk = Convert.ToInt32(Console.ReadLine());
+            k = nn;
+            while(k!=nk+1)
+            {
+                a = (k * k - 3) / (k * k - Math.Pow((-1), k) * k + 3); ;
+                Sum += a;
+                k++;
+                Console.WriteLine($"{a}, {Sum}");
+            }
+            Console.WriteLine($"{nn}, {nk}, {Sum}");
+            Console.ReadKey();
+        }
+    }
+}
