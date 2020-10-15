@@ -1,0 +1,258 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabRab6
+{
+    class Program
+    {
+        static int Method(int num)
+        {
+            int reversed = 0;
+            while (num > 0)
+            {
+                int remainded = num % 10;
+                reversed = (reversed * 10) + remainded;
+                num = num / 10;
+            }
+            Console.WriteLine(reversed + "\n");
+            return reversed;
+        }
+        static int Method(string str, int l)
+        {
+            for (int i = l - 1; i >= 0; i--)
+                Console.Write(str[i]);
+            Console.WriteLine("\n");
+            return l;
+        }
+
+        static int Method(string str, int l, int index)
+        {
+            for (int i = index - 1; i >= 0; i--)
+                Console.Write(str[i]);
+            Console.Write(".");
+            for (int i = str.Length - 1; i >= index + 1; i--)
+                Console.Write(str[i]);
+            Console.WriteLine("\n");
+            return l;
+        }
+        static int Method()
+        {
+            Console.WriteLine("Enter string: ");
+            string str4 = Console.ReadLine();
+            int index = str4.IndexOf(',');
+            int p = 0; 
+            while (index != -1)
+            {
+                for (int i = index - 1; i >= p; i--)
+                 Console.Write(str4[i]);
+                Console.Write(",");
+                p = index;
+                str4 = str4.Remove(index, 1);
+                index = str4.IndexOf(',');
+            }
+            if(p<str4.Length)
+                for (int i = str4.Length - 1; i >= p; i--)
+                {
+                    Console.Write(str4[i]);
+                }
+            Console.WriteLine("\n");
+            return 0;
+        }
+
+        static int RecurseMethod(int num)
+        {
+            if (num == 0)
+            {
+                return num;
+            }
+            int reversed = 0;
+            int remainded = num % 10;
+            reversed = (reversed * 10) + remainded;
+            Console.Write(reversed);
+            return RecurseMethod(num / 10);
+        }
+        static int RecurseMethod(string str, int i)
+        {
+            if (i < 0)
+            {
+                return i;
+            }
+            Console.Write(str[i]);
+            i--;
+            return RecurseMethod(str, i);
+        }
+        static int RecurseMethod(string str, int l, int index, int i, int j)
+        {
+            if (i < 0 && j < index + 1)
+                return index;
+            while (i >= 0)
+            {
+                Console.Write(str[i]);
+                i--;
+            }
+            Console.Write(".");
+            while (j >= index + 1)
+            {
+                Console.Write(str[j]);
+                j--;
+            }
+            Console.WriteLine("\n");
+            return index;
+        }
+        static int RecurseMethod(string str, int l, int index, int p)
+        {
+            index = str.IndexOf(',');
+            if (index == -1)
+            {
+                return index;
+            }
+            while (index != -1)
+            {
+                for (int i = index - 1; i >= p; i--)
+                    Console.Write(str[i]);
+                Console.Write(",");
+                p = index;
+                str = str.Remove(index, 1);
+                index = str.IndexOf(',');
+            }
+            if (str.IndexOf(',') == -1 && p < str.Length)
+                for (int i = str.Length - 1; i >= p; i--)
+                {
+                    Console.Write(str[i]);
+                }
+            return 0;
+        }
+
+        static void Reverse(int[] mas)
+        {
+            for (int i = 9; i >= 0; i--)
+                Console.Write(mas[i]);
+        }
+       
+        static void Reverse<T>(ref T[] mas)
+        {
+            T[] arr = new T[mas.Length];
+            for (int i = 0, j = mas.Length - 1; i < mas.Length; i++, j--)
+            {
+                arr[i] = mas[j];
+            }
+
+            mas = arr;
+        }
+
+        static void Reverse<T>(T[] mas, out T[] arr)
+        {
+            arr = new T[mas.Length];
+            for (int i = 0, j = mas.Length - 1;
+                i < mas.Length;
+                i++, j--)
+            {
+                arr[i] = mas[j];
+            }
+        }
+
+            static void Main(string[] args)
+        {
+            int num1;
+            string str2, str3, str4;
+
+            Console.WriteLine("Enter numbers: ");
+            num1 = Convert.ToInt32(Console.ReadLine());
+            Method(num1);
+
+            Console.WriteLine("Enter text: ");
+            str2 = Console.ReadLine();
+            Method(str2, str2.Length);
+
+            Console.WriteLine("Enter drob: ");
+            str3 = Console.ReadLine();
+            int index1 = str3.IndexOf('.');
+            Method(str3, str3.Length, index1);
+
+            Method();
+
+            Console.WriteLine("(Recurse) Enter numbers: ");
+            num1 = Convert.ToInt32(Console.ReadLine());
+            RecurseMethod(num1);
+            Console.WriteLine("\n");
+
+            Console.WriteLine("(Recurse) Enter text: ");
+            str2 = Console.ReadLine();
+            int i = str2.Length - 1;
+            RecurseMethod(str2, i);
+            Console.WriteLine("\n");
+
+            Console.WriteLine("(Recurse) Enter drob: ");
+            str3 = Console.ReadLine();
+            int index1r = str3.IndexOf('.');
+            int l1 = str3.Length;
+            i = index1r - 1;
+            int j = l1 - 1;
+            RecurseMethod(str3, l1, index1r, i, j);
+
+            Console.WriteLine("(Recurse) Enter string: ");
+            str4 = Console.ReadLine();
+            int p = 0;
+            int l2 = str4.Length;
+            int index2 = str4.IndexOf(',');
+            RecurseMethod(str4, l2, index2, p);
+            Console.WriteLine();
+
+            int[] massive = new int[10];
+            Console.WriteLine("Enter massive: ");
+            for (i = 0; i < 10; i++)
+            {
+                Console.Write($"{i+1}: ");
+                massive[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.Write("\nYour massive: ");
+            for (i = 0; i < 10; i++)
+            {
+                Console.Write(massive[i]);
+            }
+            Console.Write("\nReversed massive: ");
+            Reverse(massive);
+
+            int[] massive2 = new int[10];
+            Console.WriteLine("\n\nEnter massive: ");
+            for (i = 0; i < 10; i++)
+            {
+                Console.Write($"{i + 1}: ");
+                massive2[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.Write("\nYour massive: ");
+            for (i = 0; i < 10; i++)
+            {
+                Console.Write(massive2[i]);
+            }
+            Console.Write("\nReversed massive: ");
+            Reverse(ref massive2);
+            for (i = 0; i < massive2.Length; i++)
+                Console.Write(massive2[i]);
+
+            Console.WriteLine();
+            int[] massive3 = new int[10];
+            Console.WriteLine("\nEnter massive: ");
+            for (i = 0; i < 10; i++)
+            {
+                Console.Write($"{i + 1}: ");
+                massive3[i] = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.Write("\nYour massive: ");
+            for (i = 0; i < 10; i++)
+            {
+                Console.Write(massive3[i]);
+            }
+            int[] massive4 = null;
+            Console.Write("\nReversed massive: ");
+            Reverse(massive3, out massive4);
+            for (i = 0; i < massive4.Length; i++)
+                Console.Write(massive4[i]);
+
+            Console.ReadKey();
+        }
+    }
+}
