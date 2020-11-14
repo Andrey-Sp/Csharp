@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabRab7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int number, check;
+            int checkCounter = 0;
+            List<int> list = new List<int>();
+            Console.WriteLine("Enter your number: ");
+            number = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter symbol you would like to check: ");
+            check = Convert.ToInt32(Console.ReadLine());
+            while (number / 10 != 0)
+            {
+                list.Add(number % 10);
+                number /= 10;
+            }
+            list.Add(number % 10);
+            list.Reverse();
+            Console.WriteLine("Your number: ");
+            foreach (var item in list)
+            Console.Write(item);
+            Console.WriteLine();
+            for (int i = 0; i < list.Count; i++)
+            {
+                var element = list[i];
+                int counter = 0;
+                for (int j = 0; j < list.Count; j++)
+                {
+                    if (list[j] == element)
+                        counter++;
+                }
+                if (list[i] == check)
+                {
+                    checkCounter = counter;
+                }
+                Console.WriteLine($"Symbol '{list[i]}' has {counter} repeats.");
+            }
+            if (checkCounter != 0)
+            {
+                Console.WriteLine($"Given symbol '{check}' is in the list and has {checkCounter} repeats.");
+            }
+            else
+            {
+                Console.WriteLine($"Given symbol '{check}' is not in the list.");
+            }
+            Console.ReadKey();
+        }
+    }
+}
