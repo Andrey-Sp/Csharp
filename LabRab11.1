@@ -1,0 +1,214 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabRab11
+{
+    class Visitor
+    {
+        public static bool roller_coastered;
+        public static bool shooting_ranged;
+        public static bool scared;
+        public static bool crooked;
+        public static bool popcorned;
+        public static bool looked_around;
+    }
+    class Amusement_park
+    {
+        public static bool RideOnRollerCoaster()
+        {
+            Visitor visitor = new Visitor();
+            Visitor.roller_coastered = true;
+            Console.WriteLine("You ride the roller coaster!");
+            return Visitor.roller_coastered;
+        }
+        public static bool ShootAtShootingRange()
+        {
+            Visitor visitor = new Visitor();
+            Visitor.shooting_ranged = true;
+            Console.WriteLine("You shooted at the shooting range!");
+            return Visitor.shooting_ranged;
+        }
+        public static bool VisitRoomOfFear()
+        {
+            Visitor visitor = new Visitor();
+            Visitor.scared = true;
+            Console.WriteLine("You visited the roon of fear!");
+            return Visitor.scared;
+        }
+        public static bool VisitCrookedMirrorRoom()
+        {
+            Visitor visitor = new Visitor();
+            Visitor.crooked = true;
+            Console.WriteLine("You visited the crooked mirror room!");
+            return Visitor.crooked;
+        }
+        public static bool EatPopcorn()
+        {
+            Visitor visitor = new Visitor();
+            Visitor.popcorned = true;
+            Console.WriteLine("You ate popcorn!");
+            return Visitor.popcorned;
+        }
+        public static bool RideOnFerrisWheel()
+        {
+            Visitor visitor = new Visitor();
+            Visitor.looked_around = true;
+            Console.WriteLine("You ride on the ferris wheel!");
+            return Visitor.looked_around;
+        }
+    }
+    class Program
+    {
+        delegate bool DoFirstHalf();
+        delegate bool DoSecondHalf();
+        delegate bool DoAll();
+        static int Main(string[] args)
+        {
+            int option;
+            Amusement_park amusement_Park = new Amusement_park();
+            Console.WriteLine("You came to the amusement park.");
+            while (true)
+            {
+                Start:
+                Console.WriteLine("What do you want to do: \n" +
+                    "1. Ride on rolling coaster\n" +
+                    "2. Shoot at the shooting range\n" +
+                    "3. Visit the room of fear\n" +
+                    "4. Visit the crooked mirror room\n" +
+                    "5. Eat popcorn\n" +
+                    "6. Ride on the Ferris Wheel\n" +
+                    "7. Check packs\n" +
+                    "8. Check what you have already done\n" +
+                    "9. Quit park");
+                option = Convert.ToInt32(Console.ReadLine());
+                if(option == 1)
+                {
+                    Amusement_park.RideOnRollerCoaster();
+                }
+                if (option == 2)
+                {
+                    Amusement_park.ShootAtShootingRange();
+                }
+                if (option == 3)
+                {
+                    Amusement_park.VisitRoomOfFear();
+                }
+                if (option == 4)
+                {
+                    Amusement_park.VisitCrookedMirrorRoom();
+                }
+                if (option == 5)
+                {
+                    Amusement_park.EatPopcorn();
+                }
+                if (option == 6)
+                {
+                    Amusement_park.RideOnFerrisWheel();
+                }
+                if (option == 7)
+                {
+                    int packOption;
+                    while (true)
+                    {
+                        Console.WriteLine("Choose pack: \n1. Do first half\n2. Do second half\n3. Do all\n4. Go back");
+                        packOption = Convert.ToInt32(Console.ReadLine());
+                        if(packOption == 1)
+                        {
+                            DoFirstHalf doFirstHalf = new DoFirstHalf(Amusement_park.RideOnRollerCoaster);
+                            doFirstHalf += Amusement_park.ShootAtShootingRange;
+                            doFirstHalf += Amusement_park.VisitRoomOfFear;
+                            doFirstHalf();
+                        }
+                        if (packOption == 2)
+                        {
+                            DoSecondHalf doSecondHalf = new DoSecondHalf(Amusement_park.VisitCrookedMirrorRoom);
+                            doSecondHalf += Amusement_park.EatPopcorn;
+                            doSecondHalf += Amusement_park.RideOnFerrisWheel;
+                            doSecondHalf();
+                        }
+                        if (packOption == 3)
+                        {
+                            DoAll doAll = new DoAll(Amusement_park.RideOnRollerCoaster);
+                            doAll += Amusement_park.ShootAtShootingRange;
+                            doAll += Amusement_park.VisitRoomOfFear;
+                            doAll += Amusement_park.VisitCrookedMirrorRoom;
+                            doAll += Amusement_park.EatPopcorn;
+                            doAll += Amusement_park.RideOnFerrisWheel;
+                            doAll();
+                        }
+                        if (packOption == 4)
+                        {
+                            goto Start;
+                        }
+                    }
+                }
+                if (option == 8)
+                {
+                    Console.WriteLine();
+                    Console.Write("Roller coaster - ");
+                    if(Visitor.roller_coastered == true)
+                    {
+                        Console.WriteLine("check");
+                    }
+                    else
+                    {
+                        Console.WriteLine("cross");
+                    }
+                    Console.Write("Shooting range - ");
+                    if (Visitor.shooting_ranged == true)
+                    {
+                        Console.WriteLine("check");
+                    }
+                    else
+                    {
+                        Console.WriteLine("cross");
+                    }
+                    Console.Write("Room of fear - ");
+                    if (Visitor.scared == true)
+                    {
+                        Console.WriteLine("check");
+                    }
+                    else
+                    {
+                        Console.WriteLine("cross");
+                    }
+                    Console.Write("Crooked mirror room - ");
+                    if (Visitor.crooked == true)
+                    {
+                        Console.WriteLine("check");
+                    }
+                    else
+                    {
+                        Console.WriteLine("cross");
+                    }
+                    Console.Write("Popcorn - ");
+                    if (Visitor.popcorned == true)
+                    {
+                        Console.WriteLine("check");
+                    }
+                    else
+                    {
+                        Console.WriteLine("cross");
+                    }
+                    Console.Write("Ferris wheel - ");
+                    if (Visitor.looked_around == true)
+                    {
+                        Console.WriteLine("check");
+                    }
+                    else
+                    {
+                        Console.WriteLine("cross");
+                    }
+                    Console.WriteLine();
+                }
+                if (option == 9)
+                {
+                    return 0;
+                }
+            }
+        }
+    }
+}
