@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabRab8._1
+{
+    class Car
+    {
+        public string name;
+        public string color;
+        public int speed;
+        public int year;
+    }
+    class Garage
+    {
+        public static List<Car> garage = new List<Car>();
+
+        public static void AddCar(string nm, string col, int sp, int yr)
+        {
+            garage.Add(new Car(){ name = nm, color = col, speed = sp, year = yr });
+        }
+    }
+    class Program
+    {
+        static int Main(string[] args)
+        {
+            int option;
+            while(true)
+            {
+                Console.WriteLine("What do you want to do: \n1. Add car\n2. Remove car\n3. Check your garage\n4. Take car\n5. Quit");
+                option = Convert.ToInt32(Console.ReadLine());
+                if(option == 1)
+                {
+                    string name;
+                    string color;
+                    int speed;
+                    int year;
+                    Console.WriteLine("Enter name of your new car: ");
+                    name = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("Enter color of your new car: ");
+                    color = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("Enter speed of your new car: ");
+                    speed = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter year of your new car: ");
+                    year = Convert.ToInt32(Console.ReadLine());
+                    Garage.AddCar(name, color, speed, year);
+                }
+                if (option == 2)
+                {
+                    int car;
+                    Console.WriteLine("Enter number of a car, you want to remove");
+                    car = Convert.ToInt32(Console.ReadLine());
+                    car--;
+                    Garage.garage.RemoveAt(car);
+                }
+                if (option == 3)
+                {
+                    int counter = 1;
+                    foreach (Car c in Garage.garage)
+                    {
+                        Console.WriteLine($"{counter} car:\nName: {c.name}\nColor: {c.color}\nSpeed: {c.speed}\nYear: {c.year}\n");
+                        counter++;
+                    }
+                }
+                if (option == 4)
+                {
+                    int a;
+                    Console.WriteLine("Enter number of a car, you want to take");
+                    a = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"You took {Garage.garage[a].name}{Garage.garage[a].year}");
+                }
+                if (option == 5)
+                {
+                    return 0;
+                }
+            }
+        }
+    }
+}
