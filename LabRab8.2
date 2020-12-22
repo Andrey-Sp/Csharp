@@ -1,0 +1,412 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabRab8._2
+{
+     class DiscTelephone
+    {
+        public static string number = "380";
+        public virtual List<char> symbols => new List<char>() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+        public static string num;
+        public virtual void RecieveCall()
+        {
+            Console.WriteLine("*call*");
+        }
+        public virtual string MakeCall()
+        {
+            Console.WriteLine("Enter number, you want to call (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8' or '9')");
+                num = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine($"You are calling to {num}.");
+                    return num;
+        }
+    }
+    class ButtonTelephone : DiscTelephone
+    {
+        public override List<char> symbols => new List<char>() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' };
+        public override string MakeCall()
+        {
+            Console.WriteLine("Enter number, you want to call (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*' or '#')");
+                num = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine($"You are calling to {num}.");
+                    return num;
+        }
+        public override void RecieveCall()
+        {
+            Console.WriteLine($"{DiscTelephone.number} is calling");
+        }
+    }
+    class MobileBWTelephone : ButtonTelephone
+    {
+        public override List<Char> symbols => new List<char>() { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#', '+' };
+        public static string Resolution = "50x50";
+        public static string Size = "1,5'";
+        public static string Color = "Black";
+        public static string sms;
+        public virtual void RecieveSMS()
+        {
+            Console.WriteLine($"New SMS from: {number} text: '{sms}'");
+        }
+        public virtual string SendSMS()
+        {
+            Console.WriteLine("Enter number on which you want to send sms (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            num = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"Enter sms you want to send to {num} (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            sms = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"'{sms}' was successfully sent to {num}.");
+            return num;
+        }
+    }
+    class MobileColorTelephone : MobileBWTelephone
+    {
+        public static string Resolution = "100x500";
+        public static string Size = "3,5'";
+        public static string Color = "Silver";
+        public static string AmountOfColors = "100";
+        public static string number2 = "099";
+        public static string mms;
+        public static string sim;
+        public override void RecieveCall()
+        {
+            Console.WriteLine($"{sim} is calling");
+        }
+        public override string MakeCall()
+        {
+            Console.WriteLine("Enter number from what you want to make a call (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            while (true)
+            {
+                sim = Convert.ToString(Console.ReadLine());
+                if (sim != number && sim != number2)
+                {
+                    Console.WriteLine("You don't have this number, try again");
+                }
+                else
+                    break;
+            }
+            Console.WriteLine("Enter number, you want to call (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            num = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"You are calling to {num}.");
+            return num;
+        }
+        public override void RecieveSMS()
+        {
+            Console.WriteLine($"New SMS from: {number} text: '{sms}'");
+        }
+        public override string SendSMS()
+        {
+            Console.WriteLine("Enter number from what you want to send sms (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            while (true)
+            {
+                sim = Convert.ToString(Console.ReadLine());
+                if (sim != number && sim != number2)
+                {
+                    Console.WriteLine("You don't have this number, try again");
+                }
+                else
+                    break;
+            }
+            Console.WriteLine("Enter number on what you want to send sms (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            num = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"Enter sms you want to send to {num} (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            sms = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"'{sms}' was successfully sent to {num}.");
+            return num;
+        }
+        public virtual void RecieveMMS()
+        {
+            Console.WriteLine($"New MMS from: {number} text: '{mms}'");
+        }
+        public virtual string SendMMS()
+        {
+            Console.WriteLine("Enter number from what you want to send mms (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            while (true)
+            {
+                sim = Convert.ToString(Console.ReadLine());
+                if (sim != number && sim != number2)
+                {
+                    Console.WriteLine("You don't have this number, try again");
+                }
+                else
+                    break;
+            }
+            Console.WriteLine("Enter number on what you want to send mms (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            num = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"Enter mms you want to send to {num} (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            mms = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"'{mms}' was successfully sent to {num}.");
+            return num;
+        }
+    }
+    class Smartphone : MobileColorTelephone
+    {
+        public static string Resolution = "720x1280";
+        public static string Size = "5,9'";
+        public static string Color = "Metal";
+        public static string AmountOfColors = "10000";
+        public static int Cameras = 3;
+        public static int cam;
+        public static int MaxTouch = 3;
+        public override void RecieveCall()
+        {
+            Console.WriteLine($"{sim} is calling");
+        }
+        public override string MakeCall()
+        {
+            Console.WriteLine("Enter number from what you want to make a call (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            while (true)
+            {
+                sim = Convert.ToString(Console.ReadLine());
+                if (sim != number && sim != number2)
+                {
+                    Console.WriteLine("You don't have this number, try again");
+                }
+                else
+                    break;
+            }
+            Console.WriteLine("Enter number, you want to call (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            num = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"You are calling to {num}.");
+            return num;
+        }
+        public override void RecieveSMS()
+        {
+            Console.WriteLine($"New SMS from: {number} text: '{sms}'");
+        }
+        public override string SendSMS()
+        {
+            Console.WriteLine("Enter number from what you want to send sms (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            while (true)
+            {
+                sim = Convert.ToString(Console.ReadLine());
+                if (sim != number && sim != number2)
+                {
+                    Console.WriteLine("You don't have this number, try again");
+                }
+                else
+                    break;
+            }
+            Console.WriteLine("Enter number on what you want to send sms (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            num = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"Enter sms you want to send to {num}:");
+            sms = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"'{sms}' was successfully sent to {num}.");
+            return num;
+        }
+        public virtual int TakePhoto()
+        {
+            Console.WriteLine("How many cameras do you want to use: ");
+            while (true)
+            {
+                cam = Convert.ToInt32(Console.ReadLine());
+                if (cam > Cameras || cam <= 0)
+                {
+                    Console.WriteLine("Incorrect amount, try again: ");
+                }
+                else
+                    break;
+            }
+            Console.WriteLine($"You took photo on {cam} cameras");
+            return cam;
+        }
+        public virtual int TakeVideo()
+        {
+            Console.WriteLine("How many cameras do you want to use: ");
+            while (true)
+            {
+                cam = Convert.ToInt32(Console.ReadLine());
+                if (cam > Cameras || cam <= 0)
+                {
+                    Console.WriteLine("Incorrect amount, try again: ");
+                }
+                else
+                    break;
+            }
+            Console.WriteLine($"You took video on {cam} cameras");
+            return cam;
+        }
+        public override void RecieveMMS()
+        {
+            Console.WriteLine($"New MMS from: {number} text: '{mms}'");
+        }
+        public override string SendMMS()
+        {
+            Console.WriteLine("Enter number from what you want to send mms");
+            while (true)
+            {
+                sim = Convert.ToString(Console.ReadLine());
+                if (sim != number && sim != number2)
+                {
+                    Console.WriteLine("You don't have this number, try again");
+                }
+                else
+                    break;
+            }
+            Console.WriteLine("Enter number on what you want to send mms (you can use only '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '#' or '+')");
+            num = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"Enter mms you want to send to {num}:");
+            mms = Convert.ToString(Console.ReadLine());
+            Console.WriteLine($"'{mms}' was successfully sent to {num}.");
+            return num;
+        }
+    }
+    class Program
+    {
+        static int Main(string[] args)
+        {
+            int option;
+            Console.WriteLine("Your number is '380'");
+            Console.WriteLine("\nDisc telephone\n");
+            while (true)
+            {
+                DiscTelephone discTelephone = new DiscTelephone();
+                Console.WriteLine("What do you want to do:\n1. Call\n2. Go to the next step of evolution");
+                option = Convert.ToInt32(Console.ReadLine());
+                if(option == 1)
+                {
+                    discTelephone.MakeCall();
+                    if(DiscTelephone.num == DiscTelephone.number)
+                    {
+                        discTelephone.RecieveCall();
+                    }
+                }
+                if (option == 2)
+                {
+                    goto Button;
+                }
+            }
+        Button:
+            ButtonTelephone buttonTelephone = new ButtonTelephone();
+            Console.WriteLine("\nButton telephone\n");
+            while (true)
+            {
+                Console.WriteLine("What do you want to do:\n1. Call\n2. Go to the next step of evolution");
+                option = Convert.ToInt32(Console.ReadLine());
+                if (option == 1)
+                {
+                    buttonTelephone.MakeCall();
+                    if (ButtonTelephone.num == ButtonTelephone.number)
+                    {
+                        buttonTelephone.RecieveCall();
+                    }
+                }
+                if (option == 2)
+                {
+                    goto BW;
+                }
+            }
+        BW:
+            MobileBWTelephone mobileBWTelephone = new MobileBWTelephone();
+            Console.WriteLine($"\nMobile Black & White Telephone\n\nResolution = {MobileBWTelephone.Resolution}\nDisplay Size = {MobileBWTelephone.Size}\nColor = {MobileBWTelephone.Color}\n");
+            while (true)
+            {
+                Console.WriteLine("What do you want to do:\n1. Call\n2. Send SMS\n3. Go to the next step of evolution");
+                option = Convert.ToInt32(Console.ReadLine());
+                if (option == 1)
+                {
+                    mobileBWTelephone.MakeCall();
+                    if (MobileBWTelephone.num == MobileBWTelephone.number)
+                    {
+                        mobileBWTelephone.RecieveCall();
+                    }
+                }
+                if (option == 2)
+                {
+                    mobileBWTelephone.SendSMS();
+                    if (MobileBWTelephone.num == MobileBWTelephone.number)
+                    {
+                        mobileBWTelephone.RecieveSMS();
+                    }
+                }
+                if (option == 3)
+                {
+                    goto Color;
+                }
+            }
+        Color:
+            MobileColorTelephone mobileColorTelephone = new MobileColorTelephone();
+            Console.WriteLine($"\nMobile Color Telephone\n\nResolution = {MobileColorTelephone.Resolution}\nDisplay Size = {MobileColorTelephone.Size}\nColor = {MobileColorTelephone.Color}\nNew number = {MobileColorTelephone.number2}\n");
+            while (true)
+            {
+                Console.WriteLine("What do you want to do:\n1. Call\n2. Send SMS\n3. Send MMS\n4. Go to the next step of evolution");
+                option = Convert.ToInt32(Console.ReadLine());
+                if (option == 1)
+                {
+                    mobileColorTelephone.MakeCall();
+                    if (MobileColorTelephone.num == MobileColorTelephone.number || MobileColorTelephone.num == MobileColorTelephone.number2)
+                    {
+                        mobileColorTelephone.RecieveCall();
+                    }
+                }
+                if (option == 2)
+                {
+                    mobileColorTelephone.SendSMS();
+                    if (MobileColorTelephone.num == MobileColorTelephone.number || MobileColorTelephone.num == MobileColorTelephone.number2)
+                    {
+                        mobileColorTelephone.RecieveSMS();
+                    }
+                }
+                if (option == 3)
+                {
+                    mobileColorTelephone.SendMMS();
+                    if (MobileColorTelephone.num == MobileColorTelephone.number || MobileColorTelephone.num == MobileColorTelephone.number2)
+                    {
+                        mobileColorTelephone.RecieveMMS();
+                    }
+                }
+                if (option == 4)
+                {
+                    goto Smart;
+                }
+            }
+        Smart:
+            Smartphone smartphone = new Smartphone();
+            Console.WriteLine($"\nMobile Color Telephone\n\nResolution = {Smartphone.Resolution}\n" +
+                $"Display Size = {Smartphone.Size}\nColor = {Smartphone.Color}\n" +
+                $"Amount of cameras = {Smartphone.Cameras}\n" +
+                $"You can use sencor display now\nMax number of touches = {Smartphone.MaxTouch}\n");
+            while (true)
+            {
+                Console.WriteLine("What do you want to do:\n1. Call\n2. Send SMS\n3. Send MMS\n4. Take photo\n5. Take video\n6. End evolution");
+                option = Convert.ToInt32(Console.ReadLine());
+                if (option == 1)
+                {
+                    smartphone.MakeCall();
+                    if (Smartphone.num == Smartphone.number || Smartphone.num == Smartphone.number2)
+                    {
+                        smartphone.RecieveCall();
+                    }
+                }
+                if (option == 2)
+                {
+                    smartphone.SendSMS();
+                    if (Smartphone.num == Smartphone.number || Smartphone.num == Smartphone.number2)
+                    {
+                        smartphone.RecieveSMS();
+                    }
+                }
+                if (option == 3)
+                {
+                    smartphone.SendMMS();
+                    if (Smartphone.num == Smartphone.number || Smartphone.num == Smartphone.number2)
+                    {
+                        smartphone.RecieveMMS();
+                    }
+                }
+                if (option == 4)
+                {
+                    smartphone.TakePhoto();
+                }
+                if (option == 5)
+                {
+                    smartphone.TakeVideo();
+                }
+                if (option == 6)
+                {
+                    return 0;
+                }
+            }
+        }
+    }
+}
