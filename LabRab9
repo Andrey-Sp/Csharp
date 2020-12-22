@@ -1,0 +1,282 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabRab9
+{
+    abstract class Shape
+    {
+        public abstract ConsoleColor color { get; set; }
+        public abstract int vertex { get; }
+        public abstract string name { get; }
+        public abstract int sideLength { get; set; }
+        public abstract int radius { get; set; }
+        public abstract int Area { get; set; }
+        public abstract int Perimeter { get; set; }
+        public abstract void S();
+        public abstract void P();
+        public abstract void Draw();
+    }
+    class Square : Shape
+    {
+        public override ConsoleColor color { get; set; }
+        public override int vertex => 4;
+        public override string name => "Square";
+        public override int sideLength { get; set; }
+        public override int radius { get; set; }
+        public override int Area { get; set; }
+        public override int Perimeter { get; set; }
+        public Square(string name)
+        {
+            Random random = new Random();
+            sideLength = random.Next(20);
+            while (sideLength == 0)
+            {
+                sideLength = random.Next(20);
+            }
+            color = (ConsoleColor)random.Next(16);
+            Area = sideLength * sideLength;
+            Perimeter = sideLength * 4;
+            Square square = new Square(name, sideLength);
+        }
+        public Square(string name, int sideLength)
+        {
+            color = (ConsoleColor)new Random().Next(16);
+            this.sideLength = sideLength;
+            Area = sideLength * sideLength;
+            Perimeter = sideLength * 4;
+            Square square = new Square(name, sideLength, color);
+        }
+        public Square(string name, int sideLength, ConsoleColor color)
+        {
+            this.color = (ConsoleColor)color;
+            this.sideLength = sideLength;
+            Area = sideLength * sideLength;
+            Perimeter = sideLength * 4;
+            Draw();
+            S();
+            P();
+        }
+
+        public override void S()
+        {
+            Console.WriteLine("S = " + Area);
+        }
+        public override void P()
+        {
+            Console.WriteLine("P = " + Perimeter);
+            Console.WriteLine();
+        }
+        public override void Draw()
+        {
+            Console.WriteLine("Name = " + name);
+        }
+    }
+    class Circle : Shape
+    {
+        public override ConsoleColor color { get; set; }
+        public override int vertex => 0;
+        public override string name => "Circle";
+        public override int sideLength { get; set; }
+        public override int radius { get; set; }
+        public override int Area { get; set; }
+        public override int Perimeter { get; set; }
+        public Circle(string name)
+        {
+            Random random = new Random();
+            radius = random.Next(20);
+            while (radius == 0)
+            {
+                radius = random.Next(20);
+            }
+            color = (ConsoleColor)random.Next(16);
+            Area = radius * radius;
+            Perimeter = radius * 2;
+            Circle circle = new Circle(name, radius);
+        }
+        public Circle(string name, int radius)
+        {
+            color = (ConsoleColor)new Random().Next(16);
+            this.radius = radius;
+            Area = radius * radius;
+            Perimeter = radius * 2;
+            Circle circle = new Circle(name, radius, color);
+        }
+        public Circle(string name, int radius, ConsoleColor color)
+        {
+            this.color = (ConsoleColor)color;
+            this.radius = radius;
+            Area = radius * radius;
+            Perimeter = radius * 2;
+            Draw();
+            S();
+            P();
+        }
+        public override void S()
+        {
+            Console.WriteLine($"S = {Area}p");
+        }
+        public override void P()
+        {
+            Console.WriteLine($"L = {Perimeter}p");
+            Console.WriteLine();
+        }
+        public override void Draw()
+        {
+            Console.WriteLine("Name = " + name);
+        }
+    }
+    class Triangle : Shape
+    {
+        public override ConsoleColor color { get; set; }
+        public override int vertex => 3;
+        public override string name => "Triangle";
+        public override int sideLength { get; set; }
+        public static int sideLengthBott;
+        public override int radius { get; set; }
+        public override int Area { get; set; }
+        public override int Perimeter { get; set; }
+        public Triangle(string name)
+        {
+            Random random = new Random();
+            sideLength = random.Next(20);
+            while (sideLength == 0)
+            {
+                sideLength = random.Next(20);
+            }
+            sideLengthBott = random.Next(20);
+            while (sideLengthBott == 0)
+            {
+                sideLengthBott = random.Next(20);
+            }
+            color = (ConsoleColor)random.Next(16);
+            Area = ((sideLengthBott / 4) * ((4 * sideLength ^ 2) - (sideLengthBott ^ 2)) ^ (1 / 2));
+            Perimeter = (2 * sideLength + sideLengthBott);
+            Triangle triangle = new Triangle(name, sideLength);
+        }
+        public Triangle(string name, int sideLength)
+        {
+            color = (ConsoleColor)new Random().Next(16);
+            this.sideLength = sideLength;
+            Area = ((sideLengthBott / 4) * ((4 * sideLength ^ 2) - (sideLengthBott ^ 2)) ^ (1 / 2));
+            Perimeter = (2 * sideLength + sideLengthBott);
+            Triangle triangle = new Triangle(name, sideLength, color);
+        }
+        public Triangle(string name, int sideLength, ConsoleColor color)
+        {
+            Random random = new Random();
+            this.color = (ConsoleColor)color;
+            this.sideLength = sideLength;
+            Area = ((sideLengthBott / 4) * ((4 * sideLength ^ 2) - (sideLengthBott ^ 2)) ^ (1 / 2));
+            Perimeter = (2 * sideLength + sideLengthBott);
+            Draw();
+            S();
+            P();
+        }
+        public override void S()
+        {
+            Console.WriteLine("S = " + Area);
+        }
+        public override void P()
+        {
+            Console.WriteLine("P = " + Perimeter);
+            Console.WriteLine();
+        }
+        public override void Draw()
+        {
+            Console.WriteLine("Name = " + name);
+        }
+    }
+    class Picture
+    {
+        public static List<Shape> list = new List<Shape>();
+        static int counter = 0;
+        public static List<Shape> fig = new List<Shape>();
+        public static void AddSquare(Square square)
+        {
+            list.Add(square);
+        }
+        public static void AddCircle(Circle circle)
+        {
+            list.Add(circle);
+        }
+        public static void AddTriangle(Triangle triangle)
+        {
+            list.Add(triangle);
+        }
+        public static void RemoveFigure(Shape figure)
+        {
+            list.Remove(figure);
+        }
+        public static void RemoveFigureInd(int ind)
+        {
+            list.RemoveAt(ind);
+        }
+        public static int Output()
+        {
+            counter = 0;
+            foreach (var figure in list)
+            {
+                if (figure.Area > 100)
+                {
+                    fig.Add(figure);
+                }
+                else {
+                    counter++;
+                    Console.WriteLine($"{counter}. Name = {figure.name}, S = {figure.Area}, P = {figure.Perimeter}");
+                }
+            }
+            foreach (var figure in fig)
+            {
+                RemoveFigure(figure);
+            }
+            Picture picture = new Picture(counter);
+            return counter;
+        }
+        public Picture()
+        {
+            Console.WriteLine("Do you want to remove any items from the list?\n1. Yes\n2. No");
+            int option = Convert.ToInt32(Console.ReadLine());
+            if (option == 1)
+            {
+                Console.WriteLine("Which one? (enter number)");
+                int option2 = Convert.ToInt32(Console.ReadLine());
+                if(option2 == 1)
+                {
+                    RemoveFigureInd(0);
+                }
+                if (option2 == 2)
+                {
+                    RemoveFigureInd(1);
+                }
+                if (option2 == 3)
+                {
+                    RemoveFigureInd(2);
+                }
+            }
+        }
+        public Picture(int counter)
+        {
+            Console.WriteLine($"There are {counter} elements in the list.");
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Square square = new Square("Square");
+            Picture.AddSquare(square);
+            Circle circle = new Circle("Circle");
+            Picture.AddCircle(circle);
+            Triangle triangle = new Triangle("Triangle");
+            Picture.AddTriangle(triangle);
+            Picture.Output();
+            Picture picture = new Picture();
+            Console.WriteLine("Final version of the list: ");
+            Picture.Output();
+            Console.ReadKey();
+        }
+    }
+}
