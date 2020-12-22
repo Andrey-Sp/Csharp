@@ -1,0 +1,91 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SR
+{
+    public class Characteristics
+    {
+        public string name { get; set; }
+        public string color { get; set; }
+        public int year { get; set; }
+        public int price { get; set; }
+        public int cameras { get; set; }
+    }
+    class Smartphone
+    {
+        public static List<Characteristics> choise = new List<Characteristics>();
+        public static List<Characteristics> list = new List<Characteristics>()
+            {
+                new Characteristics { name = "Samsung",  color = "Black", year = 2017, price = 4000, cameras = 2 },
+                new Characteristics { name = "Meizu", color = "Silver", year = 2016, price = 3000, cameras = 2 },
+                new Characteristics { name = "Xiaomi", color = "Blue", year = 2019, price = 7000, cameras = 3 },
+                new Characteristics { name = "Apple", color = "Silver", year = 2018, price = 7000, cameras = 3 },
+                new Characteristics { name = "Nokia", color = "Light-pink", year = 2018, price = 6000, cameras = 2 }
+            };
+        public static List<Characteristics> SearchPhone(Characteristics search)
+        {
+
+            foreach (var phone in list)
+            {
+                if (search.color != "0" && phone.color != search.color)
+                    continue;
+
+                else if (search.year != 0 && phone.year != search.year)
+                    continue;
+
+                else if (search.price != 0 && phone.price != search.price)
+                    continue;
+
+                else if (search.cameras != 0 && phone.cameras != search.cameras)
+                    continue;
+
+                choise.Add(phone);
+            }
+            if (choise.Count() < 1)
+            {
+                Console.WriteLine("There are no similarities found ");
+            }
+            Console.WriteLine("Matches: ");
+            for (int i = 0; i < choise.Count(); i++)
+                Console.WriteLine($"{i + 1}.\nName = {choise.ElementAt(i).name}\nColor = {choise.ElementAt(i).color}\n" +
+                    $"Year = {choise.ElementAt(i).year}\nPrice = {choise.ElementAt(i).price}\n" +
+                    $"Amount of cameras = {choise.ElementAt(i).cameras}");
+            return choise;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string color;
+            int year;
+            int price;
+            int cameras;
+
+            Console.WriteLine("Choose your smartphone: ");
+
+            Console.Write("It's color: ");
+            color = Convert.ToString(Console.ReadLine());
+
+            Console.Write("Year: ");
+            year = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("It's price: ");
+            price = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Amount of cameras: ");
+            cameras = Convert.ToInt32(Console.ReadLine());
+
+            Characteristics characteristics = new Characteristics();
+            characteristics.color = color;
+            characteristics.year = year;
+            characteristics.price = price;
+            characteristics.cameras = cameras;
+            Smartphone.SearchPhone(characteristics);
+            Console.ReadKey();
+        }
+    }
+}
