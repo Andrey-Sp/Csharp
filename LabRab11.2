@@ -1,0 +1,95 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabRab11._2
+{
+    public delegate bool StudentPredicateDelegate(Student student);
+    public class Student
+    {
+        public delegate bool StudentPredicateDelegate(Student student);
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int Age { get; set; }
+        static public bool Adult(Student student) => student.Age >= 18;
+        static public bool FirstA(Student student) => student.FirstName[0] == 'A';
+        static public bool LastMoreThan3(Student student) => student.LastName.Length > 3;
+        public override string ToString()
+        {
+            return $" First Name: {FirstName}\tLast Name: {LastName}\tAge: {Age}";
+        }
+    }
+    static class Extension
+    {
+        static public List<Student> FindStudents(this List<Student> students, StudentPredicateDelegate studentFindPredicate)
+        {
+            List<Student> result = new List<Student>();
+            foreach (var student in students)
+            {
+                if (studentFindPredicate(student))
+                    result.Add(student);
+            }
+            return result;
+        }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Student> students = new List<Student>()
+            {
+                new Student { FirstName = "Ben", LastName = "Troelsen", Age = 16 },
+                new Student { FirstName = "Marie", LastName = "Antoinette", Age = 37 },
+                new Student { FirstName = "Scott", LastName = "Adams", Age = 17 },
+                new Student { FirstName = "Stan", LastName = "Lee", Age = 95 },
+                new Student { FirstName = "Amelia", LastName = "Earhart", Age = 40 },
+                new Student { FirstName = "Anne", LastName = "Frank", Age = 12 },
+                new Student { FirstName = "Bill", LastName = "Gates", Age = 65 },
+                new Student { FirstName = "Andrew", LastName = "Johnson", Age = 25 },
+                new Student { FirstName = "John Ronald Reuel", LastName = "Tolkien", Age = 81 },
+                new Student { FirstName = "Marie", LastName = "Curie", Age = 67 }
+            };
+            Console.WriteLine("List of the students: ");
+            students.ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("Adult: ");
+            students.FindStudents(Student.Adult).ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("With first name, starts with 'A': ");
+            students.FindStudents(Student.FirstA).ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("With last name longer than 3 letters: ");
+            students.FindStudents(Student.LastMoreThan3).ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("Adult: ");
+            students.FindStudents(st => st.Age >= 18).ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("With first name, starts with 'A': ");
+            students.FindStudents(st => st.FirstName?[0] == 'A').ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("With last name longer than 3 letters: ");
+            students.FindStudents(st => st.LastName?.Length > 3).ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("Age from 20 to 25: ");
+            students.FindStudents(st => st.Age >= 20 && st.Age <= 25).ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("First name 'Andrew': ");
+            students.FindStudents(st => st.FirstName.Equals("Andrew")).ForEach(Console.WriteLine);
+            Console.WriteLine();
+
+            Console.WriteLine("Last name 'Troelsen': ");
+            students.FindStudents(st => st.LastName.Equals("Troelsen")).ForEach(Console.WriteLine);
+            Console.ReadKey();
+        }
+    }
+}
